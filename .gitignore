@@ -1,0 +1,12 @@
+[Bb]in/
+[Oo]bj/
+.vs/
+artifacts/
+TestResults/
+__pycache__/
+.pytest_cache/
+.venv/
+venv/
+*.py[cod]
+*.user
+*.suo

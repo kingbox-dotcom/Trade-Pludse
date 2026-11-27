@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <Platforms>x64</Platforms>
+    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" />
+    <PackageReference Include="ScottPlot.WPF" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
+    <PackageReference Include="Microsoft.Extensions.Logging" />
+    <ProjectReference Include="..\TradePulse.Domain\TradePulse.Domain.csproj" />
+    <ProjectReference Include="..\TradePulse.Application\TradePulse.Application.csproj" />
+    <ProjectReference Include="..\TradePulse.Infrastructure\TradePulse.Infrastructure.csproj" />
+    <ProjectReference Include="..\TradePulse.Mt5Bridge\TradePulse.Mt5Bridge.csproj" />
+  </ItemGroup>
+</Project>

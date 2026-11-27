@@ -1,0 +1,2 @@
+MetaTrader5==5.0.6231
+pytest==8.3.4

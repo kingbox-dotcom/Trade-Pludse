@@ -1,0 +1,121 @@
+<Window x:Class="TradePulse.App.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="TradePulse MT5 Monitor (Read-Only)"
+        Width="1366" Height="820" MinWidth="1024" MinHeight="680"
+        WindowStartupLocation="CenterScreen"
+        Background="{StaticResource BgCanvasBrush}"
+        Foreground="{StaticResource TextPrimaryBrush}"
+        FontFamily="{StaticResource UiFontFamily}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="232" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Border Grid.Column="0" Background="{StaticResource BgSurface1Brush}" BorderBrush="{StaticResource BorderSubtleBrush}" BorderThickness="0,0,1,0">
+            <StackPanel Margin="16,18">
+                <TextBlock Text="TRADEPULSE" FontSize="16" FontWeight="Bold" />
+                <TextBlock Text="MT5 Read-Only Monitor" FontSize="11.5" Foreground="{StaticResource TextMutedBrush}" Margin="0,2,0,16" />
+                <RadioButton x:Name="NavDashboard" Content="Dashboard" GroupName="MainNav" IsChecked="True" Style="{StaticResource SidebarNavButtonStyle}" Checked="NavDashboard_Checked" />
+                <RadioButton x:Name="NavPositions" Content="Positions" GroupName="MainNav" Style="{StaticResource SidebarNavButtonStyle}" Checked="NavPositions_Checked" />
+                <RadioButton x:Name="NavOrders" Content="Orders" GroupName="MainNav" Style="{StaticResource SidebarNavButtonStyle}" Checked="NavOrders_Checked" />
+                <RadioButton x:Name="NavHistory" Content="History" GroupName="MainNav" Style="{StaticResource SidebarNavButtonStyle}" Checked="NavHistory_Checked" />
+                <RadioButton x:Name="NavAnalytics" Content="Analytics" GroupName="MainNav" Style="{StaticResource SidebarNavButtonStyle}" Checked="NavAnalytics_Checked" />
+                <RadioButton x:Name="NavRisk" Content="Risk Center" GroupName="MainNav" Style="{StaticResource SidebarNavButtonStyle}" Checked="NavRisk_Checked" />
+                <RadioButton x:Name="NavSettings" Content="Settings" GroupName="MainNav" Style="{StaticResource SidebarNavButtonStyle}" Checked="NavSettings_Checked" />
+                <RadioButton x:Name="NavDiagnostics" Content="Diagnostics" GroupName="MainNav" Style="{StaticResource SidebarNavButtonStyle}" Checked="NavDiagnostics_Checked" />
+            </StackPanel>
+        </Border>
+        <Border Grid.Column="1" Padding="24">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <Grid>
+                    <StackPanel x:Name="DashboardPanel" Visibility="Visible">
+                    <Border Style="{StaticResource TerminalCardStyle}" VerticalAlignment="Top">
+                        <StackPanel>
+                            <TextBlock x:Name="StatusTitle" Text="DISCONNECTED — Chưa kết nối MetaTrader 5" Style="{StaticResource PageTitleStyle}" />
+                            <TextBlock Text="Mở MT5, đăng nhập trực tiếp bằng Investor Password, sau đó chọn đúng terminal64.exe và kết nối."
+                                       Foreground="{StaticResource TextSecondaryBrush}" TextWrapping="Wrap" Margin="0,10,0,0" />
+                            <Grid Margin="0,16,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBox x:Name="TerminalPathTextBox" Grid.Column="0" Height="36" VerticalContentAlignment="Center"
+                                         Padding="10,0" ToolTip="Đường dẫn tuyệt đối tới terminal64.exe" />
+                                <Button x:Name="BrowseButton" Grid.Column="1" Content="Chọn..." Width="90" Height="36" Margin="8,0,0,0" Click="BrowseButton_Click" />
+                                <Button x:Name="ConnectButton" Grid.Column="2" Content="Kết nối" Width="110" Height="36" Margin="8,0,0,0" Click="ConnectButton_Click" />
+                                <Button x:Name="DisconnectButton" Grid.Column="3" Content="Ngắt kết nối" Width="110" Height="36" Margin="8,0,0,0" IsEnabled="False" Click="DisconnectButton_Click" />
+                            </Grid>
+                            <TextBlock x:Name="StatusDetail" Text="Chưa thử kết nối." Foreground="{StaticResource TextMutedBrush}" TextWrapping="Wrap" Margin="0,10,0,0" />
+                        </StackPanel>
+                    </Border>
+
+                    <UniformGrid x:Name="AccountCards" Columns="4" Margin="0,16,0,0">
+                        <Border Style="{StaticResource TerminalCardStyle}" Margin="0,0,8,0">
+                            <StackPanel><TextBlock Text="TÀI KHOẢN" Foreground="{StaticResource TextMutedBrush}" /><TextBlock x:Name="LoginText" Text="--" FontSize="20" Margin="0,6,0,0" /></StackPanel>
+                        </Border>
+                        <Border Style="{StaticResource TerminalCardStyle}" Margin="4,0">
+                            <StackPanel><TextBlock Text="SỐ DƯ" Foreground="{StaticResource TextMutedBrush}" /><TextBlock x:Name="BalanceText" Text="--" FontSize="20" Margin="0,6,0,0" /></StackPanel>
+                        </Border>
+                        <Border Style="{StaticResource TerminalCardStyle}" Margin="4,0">
+                            <StackPanel><TextBlock Text="VỐN" Foreground="{StaticResource TextMutedBrush}" /><TextBlock x:Name="EquityText" Text="--" FontSize="20" Margin="0,6,0,0" /></StackPanel>
+                        </Border>
+                        <Border Style="{StaticResource TerminalCardStyle}" Margin="8,0,0,0">
+                            <StackPanel><TextBlock Text="LỆNH ĐANG MỞ" Foreground="{StaticResource TextMutedBrush}" /><TextBlock x:Name="PositionsText" Text="--" FontSize="20" Margin="0,6,0,0" /></StackPanel>
+                        </Border>
+                    </UniformGrid>
+                    <Grid Margin="0,16,0,0">
+                        <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                        <Border Grid.Column="0" Style="{StaticResource TerminalCardStyle}" Margin="0,0,8,0">
+                            <StackPanel><TextBlock Text="Tài khoản" Style="{StaticResource PageTitleStyle}" FontSize="16"/><TextBlock x:Name="AccountServerText" Text="--" Margin="0,10,0,0"/><TextBlock x:Name="AccountCompanyText" Text="--" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,4,0,0"/></StackPanel>
+                        </Border>
+                        <Border Grid.Column="1" Style="{StaticResource TerminalCardStyle}" Margin="8,0,0,0">
+                            <StackPanel><TextBlock Text="Rủi ro" Style="{StaticResource PageTitleStyle}" FontSize="16"/><TextBlock x:Name="MarginText" Text="Margin: --" Margin="0,10,0,0"/><TextBlock x:Name="MarginLevelText" Text="Margin level: --" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,4,0,0"/></StackPanel>
+                        </Border>
+                    </Grid>
+                    </StackPanel>
+
+                    <StackPanel x:Name="PositionsPanel" Visibility="Collapsed">
+                        <TextBlock Text="Positions" Style="{StaticResource PageTitleStyle}" /><TextBlock Text="Các vị thế đang mở được đọc trực tiếp từ MT5." Foreground="{StaticResource TextSecondaryBrush}" Margin="0,6,0,16"/>
+                        <Border Style="{StaticResource TerminalCardStyle}" Padding="0"><DataGrid x:Name="PositionsGrid" Height="520" AutoGenerateColumns="True" IsReadOnly="True" HeadersVisibility="Column"/></Border>
+                    </StackPanel>
+                    <StackPanel x:Name="OrdersPanel" Visibility="Collapsed">
+                        <TextBlock Text="Orders" Style="{StaticResource PageTitleStyle}" /><TextBlock Text="Danh sách lệnh chờ, không cho phép sửa hoặc gửi lệnh." Foreground="{StaticResource TextSecondaryBrush}" Margin="0,6,0,16"/>
+                        <Border Style="{StaticResource TerminalCardStyle}" Padding="0"><DataGrid x:Name="OrdersGrid" Height="520" AutoGenerateColumns="True" IsReadOnly="True" HeadersVisibility="Column"/></Border>
+                    </StackPanel>
+                    <StackPanel x:Name="HistoryPanel" Visibility="Collapsed">
+                        <TextBlock Text="History — 30 ngày" Style="{StaticResource PageTitleStyle}" /><TextBlock Text="Lịch sử deal gần nhất theo giao dịch thực tế." Foreground="{StaticResource TextSecondaryBrush}" Margin="0,6,0,16"/>
+                        <Border Style="{StaticResource TerminalCardStyle}" Padding="0"><DataGrid x:Name="HistoryGrid" Height="520" AutoGenerateColumns="True" IsReadOnly="True" HeadersVisibility="Column"/></Border>
+                    </StackPanel>
+                    <StackPanel x:Name="AnalyticsPanel" Visibility="Collapsed">
+                        <TextBlock Text="Analytics" Style="{StaticResource PageTitleStyle}" /><UniformGrid Columns="4" Margin="0,16,0,0">
+                            <Border Style="{StaticResource TerminalCardStyle}" Margin="0,0,8,0"><StackPanel><TextBlock Text="Realized P&amp;L" Foreground="{StaticResource TextMutedBrush}"/><TextBlock x:Name="RealizedPnlText" Text="--" FontSize="20"/></StackPanel></Border>
+                            <Border Style="{StaticResource TerminalCardStyle}" Margin="4,0"><StackPanel><TextBlock Text="Floating P&amp;L" Foreground="{StaticResource TextMutedBrush}"/><TextBlock x:Name="FloatingPnlText" Text="--" FontSize="20"/></StackPanel></Border>
+                            <Border Style="{StaticResource TerminalCardStyle}" Margin="4,0"><StackPanel><TextBlock Text="Win rate" Foreground="{StaticResource TextMutedBrush}"/><TextBlock x:Name="WinRateText" Text="--" FontSize="20"/></StackPanel></Border>
+                            <Border Style="{StaticResource TerminalCardStyle}" Margin="8,0,0,0"><StackPanel><TextBlock Text="Profit factor" Foreground="{StaticResource TextMutedBrush}"/><TextBlock x:Name="ProfitFactorText" Text="--" FontSize="20"/></StackPanel></Border>
+                        </UniformGrid>
+                    </StackPanel>
+                    <StackPanel x:Name="RiskPanel" Visibility="Collapsed">
+                        <TextBlock Text="Risk Center" Style="{StaticResource PageTitleStyle}" />
+                        <UniformGrid Columns="3" Margin="0,16,0,0">
+                            <Border Style="{StaticResource TerminalCardStyle}" Margin="0,0,8,0"><StackPanel><TextBlock Text="Margin" Foreground="{StaticResource TextMutedBrush}"/><TextBlock x:Name="RiskMarginText" Text="--" FontSize="20"/></StackPanel></Border>
+                            <Border Style="{StaticResource TerminalCardStyle}" Margin="4,0"><StackPanel><TextBlock Text="Margin level" Foreground="{StaticResource TextMutedBrush}"/><TextBlock x:Name="RiskMarginLevelText" Text="--" FontSize="20"/></StackPanel></Border>
+                            <Border Style="{StaticResource TerminalCardStyle}" Margin="8,0,0,0"><StackPanel><TextBlock Text="Free margin" Foreground="{StaticResource TextMutedBrush}"/><TextBlock x:Name="RiskFreeMarginText" Text="--" FontSize="20"/></StackPanel></Border>
+                        </UniformGrid>
+                        <Border Style="{StaticResource TerminalCardStyle}" Margin="0,16,0,0"><TextBlock x:Name="RiskStatusText" Text="Kết nối MT5 để đánh giá rủi ro." TextWrapping="Wrap"/></Border>
+                    </StackPanel>
+                    <StackPanel x:Name="SettingsPanel" Visibility="Collapsed">
+                        <TextBlock Text="Settings" Style="{StaticResource PageTitleStyle}" />
+                        <Border Style="{StaticResource TerminalCardStyle}" Margin="0,16,0,0"><StackPanel><TextBlock Text="MetaTrader terminal" Foreground="{StaticResource TextMutedBrush}"/><TextBox x:Name="SettingsTerminalPathTextBox" Height="36" Margin="0,8,0,0" IsReadOnly="True"/><TextBlock Text="Không lưu hoặc yêu cầu mật khẩu trong TradePulse." Foreground="{StaticResource TextSecondaryBrush}" Margin="0,10,0,0"/></StackPanel></Border>
+                    </StackPanel>
+                    <StackPanel x:Name="DiagnosticsPanel" Visibility="Collapsed">
+                        <TextBlock Text="Diagnostics" Style="{StaticResource PageTitleStyle}" />
+                        <Border Style="{StaticResource TerminalCardStyle}" Margin="0,16,0,0"><StackPanel><TextBlock x:Name="DiagnosticsPythonText" Text="Python: đang kiểm tra"/><TextBlock x:Name="DiagnosticsMt5Text" Text="MT5: chưa kết nối" Margin="0,8,0,0"/><TextBlock x:Name="DiagnosticsSnapshotText" Text="Lần cập nhật: --" Margin="0,8,0,0"/><TextBlock x:Name="DiagnosticsModeText" Text="Chế độ: READ-ONLY" Margin="0,8,0,0"/></StackPanel></Border>
+                    </StackPanel>
+                </Grid>
+            </ScrollViewer>
+        </Border>
+    </Grid>
+</Window>

@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <Platforms>x64</Platforms>
+    <IsPackable>false</IsPackable>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="xunit" />
+    <PackageReference Include="xunit.runner.visualstudio" />
+    <ProjectReference Include="..\..\src\TradePulse.Domain\TradePulse.Domain.csproj" />
+    <ProjectReference Include="..\..\src\TradePulse.Application\TradePulse.Application.csproj" />
+    <ProjectReference Include="..\..\src\TradePulse.Mt5Bridge\TradePulse.Mt5Bridge.csproj" />
+  </ItemGroup>
+</Project>
